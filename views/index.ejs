@@ -1,0 +1,21 @@
+<%- include("partials/header")  %>
+
+<div class="container">
+    <%- include("partials/top") %>
+    <%- include("partials/search") %>
+    <h2>Latest added movies</h2>
+    <div id="suggestions">
+        <% movies.forEach(movie => { %>
+            <a href="/movie/<%=movie._id%>">
+                <div class="card">
+                    <img src="/images/<%=movie.cover %>" />
+                </div>
+            </a>            
+        <% }) %>
+    </div>
+    <%- include("partials/footer") %>
+</div>
+    
+</body>
+
+</html>

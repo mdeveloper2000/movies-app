@@ -1,0 +1,31 @@
+<%- include("partials/header")  %>
+
+<div class="container">
+    <%- include("partials/top") %>
+    <div class="movie">
+        <div class="details">
+            <h1><%= movie.title %></h1>
+            <h2>Year: <%= movie.year %></h2>
+            <h2>Director: <%= movie.director %></h2>
+            <h2>Cast: <%=movie.cast %></h2>
+        </div>
+        <div class="cover">
+            <img src="/images/<%=movie.cover %>" width="250" height="350" />
+        </div>
+    </div>
+    <h2>You may also like:</h2>
+    <div id="suggestions">
+        <% suggestions.forEach(suggestion => { %>
+            <a href="/movie/<%=suggestion._id%>">
+                <div class="card">
+                    <img src="/images/<%= suggestion.cover %>" />
+                </div>
+            </a>            
+        <% }) %>
+    </div>
+    <%- include("partials/footer") %>
+</div>
+    
+</body>
+
+</html>
