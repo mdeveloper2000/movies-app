@@ -1,0 +1,48 @@
+<div class="search">
+    <input type="search" />&nbsp;&nbsp;
+    <button type="submit" id="searchbtn">
+        <i class="fa-solid fa-magnifying-glass"></i> Search
+    </button>
+</div>
+<div id="results"></div>
+
+<script>
+
+    const btn = document.querySelector('#searchbtn')
+    btn.addEventListener('click', async (e) => {
+    e.preventDefault()
+    const search = document.querySelector('input').value
+    const res = await fetch('/movies/' + search, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    const data = await res.json()
+    const results = document.querySelector('#results')            
+    results.style.display = "block"
+    results.innerHTML = ""
+    if(data.length > 0) {                
+        data.forEach(movie => {                    
+            const link = document.createElement("a");
+            link.href = `/movie/${movie._id}`
+            const card = document.createElement('div')
+            const title = document.createElement("p")
+            title.innerHTML = movie.title
+            const cover = document.createElement("img")
+            cover.src = "/images/" + movie.cover                    
+            card.classList.add("card")
+            link.appendChild(card)
+            card.appendChild(cover)
+            results.appendChild(link)
+        })
+    }
+    else {
+        const msg = document.createElement("div")
+        msg.classList.add("search-error")
+        const txt = document.createElement("p")
+        txt.innerHTML = "<h3>Your search returned no results. Try a different search</h3>"
+        msg.appendChild(txt)
+        results.appendChild(msg)
+    }
+})
+
+</script>
